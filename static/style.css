@@ -1,0 +1,48 @@
+body {
+  background: black;
+}
+
+.container {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+
+  display: flex;
+  flex-flow: column nowrap;
+  touch-action: none;
+  align-items: stretch;
+}
+
+.air-container {
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: stretch;
+  flex: 1;
+}
+
+.touch-container {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: stretch;
+  flex: 1;
+}
+
+.grow > * {
+  flex: 1;
+}
+
+.key {
+  flex: 1;
+  border: 1px solid gray;
+}
+
+.key.air[data-active] {
+  background-color: skyblue;
+}
+
+canvas {
+  touch-action: none;
+  margin: 0px -1.5625vw;
+}

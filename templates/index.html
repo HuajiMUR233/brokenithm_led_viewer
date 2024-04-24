@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>brokenithm_led_viewer</title>
+    <meta charset="utf8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <link rel="stylesheet" href="/static/style.css">
+  </head>
+  <body>
+    
+    <!-- Offset for LED display -->
+    <div class="container">
+      {% if air %}
+      <div class="air-container grow"></div>
+      {% endif %}
+      {% if ground %}
+      <div class="touch-container grow">
+        <canvas id="canvas" width="33" height="1"></canvas>
+      </div>
+      {% endif %}
+    </div>
+    <!-- Hitbox Divs -->
+    <div class="container" id="main">
+      {% if air %}
+      <div class="air-container grow">
+        <div class="air key" id="air4"></div>
+        <div class="air key" id="air5"></div>
+        <div class="air key" id="air2"></div>
+        <div class="air key" id="air3"></div>
+        <div class="air key" id="air0"></div>
+        <div class="air key" id="air1"></div>
+      </div>
+      {% endif %}
+      {% if ground %}
+      <div class="touch-container grow">
+        <div class="key"></div>
+        <div class="key"></div>
+        <div class="key"></div>
+        <div class="key"></div>
+        <div class="key"></div>
+        <div class="key"></div>
+        <div class="key"></div>
+        <div class="key"></div>
+        <div class="key"></div>
+        <div class="key"></div>
+        <div class="key"></div>
+        <div class="key"></div>
+        <div class="key"></div>
+        <div class="key"></div>
+        <div class="key"></div>
+        <div class="key"></div>
+      </div>
+      {% endif %}
+    </div>
+    <script src="/static/socket.io.min.js"></script>
+    <script src="/static/app.js"></script>
+  </body>
+</html>
