@@ -10,7 +10,7 @@ from flask_socketio import SocketIO
 app = Flask(__name__, static_url_path="/static")
 socketio = SocketIO(app)
 
-led_task_thread = None
+socket_connected = False
 
 @app.route("/")
 def index():
@@ -36,18 +36,21 @@ def config():
 
 @socketio.on("connect")
 def on_connect():
+    global socket_connected
+    socket_connected = True
     threading.Thread(target=air_task).start()
     threading.Thread(target=led_task).start()
 
 
-@socketio.on("ping")
+@socketio.on("disconnect")
 def on_ping():
-    socketio.emit("pong")
+    global socket_connected
+    socket_connected = False
 
 
 def air_task():
     priv_air_data = None
-    while True:
+    while socket_connected:
         with mmap.mmap(0, 1024, "Local\\BROKENITHM_SHARED_BUFFER", mmap.ACCESS_READ) as mmap_file:
             mmap_file.seek(0)
             air_data = mmap_file.read(6)
@@ -59,7 +62,7 @@ def air_task():
 
 def led_task():
     priv_led_data = None
-    while True:
+    while socket_connected:
         with mmap.mmap(0, 1024, "Local\\BROKENITHM_SHARED_BUFFER", mmap.ACCESS_READ) as mmap_file:
             mmap_file.seek(6 + 32)
             led_data = mmap_file.read(32*3)
